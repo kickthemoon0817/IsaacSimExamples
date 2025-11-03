@@ -22,7 +22,6 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
       - OMNI_KIT_ALLOW_ROOT=1
-      - PATH=/isaac-sim/kit/python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - ISAAC_PATH=/isaac-sim
       - CARB_APP_PATH=/isaac-sim/kit
       - EXP_PATH=/isaac-sim/apps
