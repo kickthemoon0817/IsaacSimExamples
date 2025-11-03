@@ -1,5 +1,5 @@
 {
-  "name": "Isaac Sim Dev (5.0.0)",
+  "name": "Isaac Sim Dev (5.1.0)",
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
@@ -7,13 +7,6 @@
   "workspaceFolder": "/isaac-sim",
   "shutdownAction": "stopCompose",
   "remoteUser": "root",
-  "remoteEnv": {
-    "PATH": "/isaac-sim/kit/python/bin:${containerEnv:PATH}",
-    "ISAAC_PATH": "/isaac-sim",
-    "CARB_APP_PATH": "/isaac-sim/kit",
-    "EXP_PATH": "/isaac-sim/apps",
-    "PYTHONPATH": "/isaac-sim/kit/python/bin/python3"
-  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -33,8 +26,8 @@
       }
     }
   },
-  "service": "isaac-sim-5.0.0",
+  "service": "isaac-sim-5.1.0",
   "runServices": [
-    "isaac-sim-5.0.0"
+    "isaac-sim-5.1.0"
   ]
 }

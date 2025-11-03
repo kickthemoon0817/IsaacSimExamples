@@ -1,6 +1,4 @@
-version: '3.8'
-
-# Unified docker-compose file for Isaac Sim versions 4.2.0, 4.5.0, and 5.0.0
+# Unified docker-compose file for various Isaac Sim versions
 # Usage:
 #   For version 5.1.0: docker-compose up isaac-sim-5.1.0
 #   For version 5.0.0: docker-compose up isaac-sim-5.0.0
@@ -17,11 +15,18 @@ services:
       context: .
       dockerfile: Dockerfile
     runtime: nvidia
+    env_file:
+      - .env.pub
     environment:
       - DISPLAY=${DISPLAY:-:0}
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
       - OMNI_KIT_ALLOW_ROOT=1
+      - PATH=/isaac-sim/kit/python/bin
+      - ISAAC_PATH=/isaac-sim
+      - CARB_APP_PATH=/isaac-sim/kit
+      - EXP_PATH=/isaac-sim/apps
+      - PYTHONPATH=/isaac-sim/kit/python/bin/python3
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ${HOME}/.Xauthority:/root/.Xauthority:rw
@@ -39,7 +44,23 @@ services:
               capabilities: [gpu]
 
   # ============================================================================
-  # Isaac Sim 5.0.0 Service (Default/Latest)
+  # Isaac Sim 5.1.0 Service (Latest)
+  # ============================================================================
+  isaac-sim-5.1.0:
+    <<: *isaac-sim-base
+    container_name: isaac-sim-5.1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: isaac-sim-5.1.0
+    image: isaac-sim:5.1.0
+    profiles:
+      - v5.1.0
+      - all
+      - latest
+
+  # ============================================================================
+  # Isaac Sim 5.0.0 Service
   # ============================================================================
   isaac-sim-5.0.0:
     <<: *isaac-sim-base
@@ -49,11 +70,8 @@ services:
       dockerfile: Dockerfile
       target: isaac-sim-5.0.0
     image: isaac-sim:5.0.0
-    env_file:
-      - .env.pub
     profiles:
       - v5.0.0
-      - latest
       - all
 
   # ============================================================================
@@ -70,13 +88,6 @@ services:
     profiles:
       - v4.5.0
       - all
-    environment:
-      - DISPLAY=${DISPLAY:-:0}
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - ACCEPT_EULA=Y
-      - OMNI_KIT_ALLOW_ROOT=1
-      - ISAAC_SIM_VERSION=4.5.0
 
   # ============================================================================
   # Isaac Sim 4.2.0 Service
@@ -92,13 +103,6 @@ services:
     profiles:
       - v4.2.0
       - all
-    environment:
-      - DISPLAY=${DISPLAY:-:0}
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - ACCEPT_EULA=Y
-      - OMNI_KIT_ALLOW_ROOT=1
-      - ISAAC_SIM_VERSION=4.2.0
 
 # ============================================================================
 # Optional: Named volumes for persistence
@@ -108,4 +112,3 @@ services:
 #     driver: local
 #   isaac-sim-data:
 #     driver: local
-
