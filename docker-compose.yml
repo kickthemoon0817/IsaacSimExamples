@@ -1,0 +1,114 @@
+# Unified docker-compose file for various Isaac Sim versions
+# Usage:
+#   For version 5.1.0: docker-compose up isaac-sim-5.1.0
+#   For version 5.0.0: docker-compose up isaac-sim-5.0.0
+#   For version 4.5.0: docker-compose up isaac-sim-4.5.0
+#   For version 4.2.0: docker-compose up isaac-sim-4.2.0
+#   Or use profiles: docker-compose --profile v4.2.0 up
+
+services:
+  # ============================================================================
+  # Base service configuration (using YAML anchors for reusability)
+  # ============================================================================
+  x-isaac-sim-base: &isaac-sim-base
+    build:
+      context: .
+      dockerfile: Dockerfile
+    runtime: nvidia
+    env_file:
+      - .env.pub
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - OMNI_KIT_ALLOW_ROOT=1
+      - PATH=/isaac-sim/kit/python/bin
+      - ISAAC_PATH=/isaac-sim
+      - CARB_APP_PATH=/isaac-sim/kit
+      - EXP_PATH=/isaac-sim/apps
+      - PYTHONPATH=/isaac-sim/kit/python/bin/python3
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${HOME}/.Xauthority:/root/.Xauthority:rw
+      - ./examples/${VERSION}:/isaac-sim/userExamples:rw
+    network_mode: host
+    stdin_open: true
+    tty: true
+    privileged: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']
+              capabilities: [gpu]
+
+  # ============================================================================
+  # Isaac Sim 5.1.0 Service (Latest)
+  # ============================================================================
+  isaac-sim-5.1.0:
+    <<: *isaac-sim-base
+    container_name: isaac-sim-5.1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: isaac-sim-5.1.0
+    image: isaac-sim:5.1.0
+    profiles:
+      - v5.1.0
+      - all
+      - latest
+
+  # ============================================================================
+  # Isaac Sim 5.0.0 Service
+  # ============================================================================
+  isaac-sim-5.0.0:
+    <<: *isaac-sim-base
+    container_name: isaac-sim-5.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: isaac-sim-5.0.0
+    image: isaac-sim:5.0.0
+    profiles:
+      - v5.0.0
+      - all
+
+  # ============================================================================
+  # Isaac Sim 4.5.0 Service
+  # ============================================================================
+  isaac-sim-4.5.0:
+    <<: *isaac-sim-base
+    container_name: isaac-sim-4.5.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: isaac-sim-4.5.0
+    image: isaac-sim:4.5.0
+    profiles:
+      - v4.5.0
+      - all
+
+  # ============================================================================
+  # Isaac Sim 4.2.0 Service
+  # ============================================================================
+  isaac-sim-4.2.0:
+    <<: *isaac-sim-base
+    container_name: isaac-sim-4.2.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: isaac-sim-4.2.0
+    image: isaac-sim:4.2.0
+    profiles:
+      - v4.2.0
+      - all
+
+# ============================================================================
+# Optional: Named volumes for persistence
+# ============================================================================
+# volumes:
+#   isaac-sim-cache:
+#     driver: local
+#   isaac-sim-data:
+#     driver: local

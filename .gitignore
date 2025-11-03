@@ -205,3 +205,7 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# FIXME: temporal ref directories
+_khemoo/
+_khemoo_1/

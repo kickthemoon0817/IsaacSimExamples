@@ -1,0 +1,33 @@
+{
+  "name": "Isaac Sim Dev (5.1.0)",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "overrideCommand": true,
+  "workspaceFolder": "/isaac-sim",
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "args": ["-l"]
+          }
+        },
+        "python.defaultInterpreterPath": "/isaac-sim/kit/python/bin/python3"
+      }
+    }
+  },
+  "service": "isaac-sim-5.1.0",
+  "runServices": [
+    "isaac-sim-5.1.0"
+  ]
+}
