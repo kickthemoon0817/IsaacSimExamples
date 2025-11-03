@@ -3,7 +3,6 @@
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
-  "overrideCommand": true,
   "workspaceFolder": "/isaac-sim",
   "shutdownAction": "stopCompose",
   "remoteUser": "root",
