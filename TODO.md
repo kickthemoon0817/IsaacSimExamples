@@ -1,0 +1,1 @@
+[] automate the `source /isaac-sim/setup_python_env.sh && source /isaac-sim/setup_ros_env.sh`

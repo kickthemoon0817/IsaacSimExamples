@@ -6,8 +6,6 @@ ENV ISAAC_SIM_VERSION=5.1.0 \
 WORKDIR /isaac-sim
 
 RUN ln -sf /isaac-sim/kit/python/bin/python3 /isaac-sim/kit/python/bin/python
-RUN echo 'source /isaac-sim/setup_python_env.sh' >> ~/.bashrc && \
-    echo 'source /isaac-sim/setup_ros_env.sh' >> ~/.bashrc
 
 ENTRYPOINT ["/bin/bash"]
 
@@ -18,9 +16,8 @@ ENV ISAAC_SIM_VERSION=5.0.0 \
     ACCEPT_EULA=Y \
     PATH="/isaac-sim/kit/python/bin:${PATH}"
 WORKDIR /isaac-sim
+
 RUN ln -sf /isaac-sim/kit/python/bin/python3 /isaac-sim/kit/python/bin/python
-RUN echo 'source /isaac-sim/setup_python_env.sh' >> ~/.bashrc && \
-    echo 'source /isaac-sim/setup_ros_env.sh' >> ~/.bashrc
 
 ENTRYPOINT ["/bin/bash"]
 
@@ -33,8 +30,6 @@ ENV ISAAC_SIM_VERSION=4.5.0 \
 WORKDIR /isaac-sim
 
 RUN ln -sf /isaac-sim/kit/python/bin/python3 /isaac-sim/kit/python/bin/python
-RUN echo 'source /isaac-sim/setup_python_env.sh' >> ~/.bashrc && \
-    echo 'source /isaac-sim/setup_ros_env.sh' >> ~/.bashrc
 
 ENTRYPOINT ["/bin/bash"]
 
@@ -47,7 +42,5 @@ ENV ISAAC_SIM_VERSION=4.2.0 \
 WORKDIR /isaac-sim
 
 RUN ln -sf /isaac-sim/kit/python/bin/python3 /isaac-sim/kit/python/bin/python
-RUN echo 'source /isaac-sim/setup_python_env.sh' >> ~/.bashrc && \
-    echo 'source /isaac-sim/setup_ros_env.sh' >> ~/.bashrc
 
 ENTRYPOINT ["/bin/bash"]
