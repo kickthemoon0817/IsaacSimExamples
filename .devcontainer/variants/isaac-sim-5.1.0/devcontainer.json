@@ -3,7 +3,6 @@
   "dockerComposeFile": [
     "../docker-compose.yml"
   ],
-  "overrideCommand": true,
   "workspaceFolder": "/isaac-sim",
   "shutdownAction": "stopCompose",
   "remoteUser": "root",
@@ -12,16 +11,12 @@
       "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "ms-toolsai.jupyter"
+        "ms-toolsai.jupyter",
+        "openai.chatgpt",
+        "augment.vscode-augment"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
-        "terminal.integrated.profiles.linux": {
-          "bash": {
-            "path": "/bin/bash",
-            "args": ["-l"]
-          }
-        },
         "python.defaultInterpreterPath": "/isaac-sim/kit/python/bin/python3"
       }
     }
